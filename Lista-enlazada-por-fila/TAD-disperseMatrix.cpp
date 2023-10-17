@@ -1,0 +1,2 @@
+/*La primera entrega debe contener el prototipo de la clase asociada al TAD
+DisperseMatrix así como evidenciar avances en la implementación de algunas operaciones. Esta entrega debe ser enviada a más tardar el día 21 de Octubre a las 23:59*/
