@@ -66,7 +66,7 @@ public:
     /*Operadores sobrecargados*/
     DisperseMatrix operator*(DisperseMatrix &l);
     DisperseMatrix operator+(DisperseMatrix &l);
-    DisperseMatrix operator==(DisperseMatrix &l);
+    bool operator==(DisperseMatrix &l);
 
 };
 #endif
