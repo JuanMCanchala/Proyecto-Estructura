@@ -72,7 +72,7 @@ corresponde a un cero, este valor debe ser retornado.
 int DisperseMatrix::get(int fila, int columna)
 {
     int ans = 0;
-    int valor = 0;  // Valor predeterminado a cero
+    int valor = 0; 
 
     for (int i = 0; i < this->fila.size(); i++) {
         if (this->fila[i] == fila && this->columnas[i] == columna) {
@@ -90,6 +90,15 @@ enlazada (se deben considerar ambas variantes).
 */
 vector<int> DisperseMatrix::getRow(int fila)
 {
+    vector<int> filaVector;
+
+    for (int i = 0; i < this->fila.size(); i++) {
+        if (this->fila[i] == fila) {
+            filaVector.push_back(this->distintoDeCeros[i]);
+        }
+    }
+
+    return filaVector;
 }
 
 /*Operacion getRowList*/
@@ -104,6 +113,7 @@ enlazada (se deben considerar ambas variantes).
 */
 vector<int> DisperseMatrix::getCol(int columna)
 {
+
 }
 
 
@@ -170,6 +180,12 @@ Entrada: que construye la matriz dispersa correspondiente a la transpuesta del o
 vector<vector<int>> DisperseMatrix::getTranspose(vector<vector<int>> matriz)
 {
     vector<vector<int>> copiaMatriz(matriz);
+    for(int i = 0; i < matriz.size(); i++){
+        for(int j = 0; j < matriz[0].size(); j++){
+            copiaMatriz[i][j] = matriz[j][i];
+        }
+    }
+    return copiaMatriz;
 
 }
 
@@ -206,8 +222,7 @@ void DisperseMatrix::assign(int i, int j, int nuevoValor) {
 
 /*
 Operación add.
-Entrada: que recibe otra matriz dispersa de iguales dimensiones y le suma al objeto actual la matriz
-que se recibe como parámetro.
+Entrada: que recibe otra matriz dispersa de iguales dimensiones y le suma al objeto actual la matriz que se recibe como parámetro.
 */
 void DisperseMatrix::add(vector<vector<int>> matriz)
 {
@@ -248,6 +263,6 @@ DisperseMatrix DisperseMatrix::operator*(DisperseMatrix &l){
 }
 
 // Operador == para comprobar si dos matrices son iguales
-DisperseMatrix DisperseMatrix::operator==(DisperseMatrix &l){
+bool DisperseMatrix::operator==(DisperseMatrix &l){
 
 }
