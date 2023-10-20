@@ -15,7 +15,7 @@ DisperseMatrix::DisperseMatrix(int** matriz, int fila, int columna) {
         for (int j = 0; j < columna; j++) {
             if (matriz[i][j] != 0) {
                 distintoDeCeros.push_back(matriz[i][j]);
-                this->fila.push_back(i);
+                filas.push_back(i);
                 columnas.push_back(j);
             }
         }
@@ -36,8 +36,8 @@ DisperseMatrix::DisperseMatrix(vector<vector<int>> &arreglo)
         for (int j = 0; j < columna; j++) {
             if (arreglo[i][j] != 0) {
                 distintoDeCeros.push_back(arreglo[i][j]);
-                this->fila.push_back(i);
-                this->columnas.push_back(j);
+                filas.push_back(i);
+                columnas.push_back(j);
             }
         }
     }
@@ -49,9 +49,9 @@ Constructor que toma como parametro otra instancia de disperseMatrix
 
 DisperseMatrix::DisperseMatrix(DisperseMatrix &a)
 {
-    this->distintoDeCeros = a.distintoDeCeros;
-    this->fila = a.fila;
-    this->columnas = a.columnas;
+    distintoDeCeros = a.distintoDeCeros;
+    filas = a.filas;
+    columnas = a.columnas;
 }
 /*======================FINAL-CONSTRUCTORES==============================*/
 
@@ -74,8 +74,8 @@ int DisperseMatrix::get(int fila, int columna)
     int ans = 0;
     int valor = 0; 
 
-    for (int i = 0; i < this->fila.size(); i++) {
-        if (this->fila[i] == fila && this->columnas[i] == columna) {
+    for (int i = 0; i < filas.size(); i++) {
+        if (filas[i] == fila && columnas[i] == columna) {
             ans = valor;
         }
     }
@@ -92,8 +92,8 @@ vector<int> DisperseMatrix::getRow(int fila)
 {
     vector<int> filaVector;
 
-    for (int i = 0; i < this->fila.size(); i++) {
-        if (this->fila[i] == fila) {
+    for (int i = 0; i < filas.size(); i++) {
+        if (filas[i] == fila) {
             filaVector.push_back(this->distintoDeCeros[i]);
         }
     }
@@ -177,7 +177,7 @@ int DisperseMatrix::getMax()
 Operación getTranspose.
 Entrada: que construye la matriz dispersa correspondiente a la transpuesta del objeto actual.
 */
-vector<vector<int>> DisperseMatrix::getTranspose()
+DisperseMatrix DisperseMatrix::getTranspose()
 {
 DisperseMatrix result(*this);
 //terminar
@@ -192,12 +192,12 @@ void DisperseMatrix::assign(int i, int j, int nuevoValor) {
     bool eliminado = false;
 
     for (int index = 0; index < distintoDeCeros.size(); index++) {
-        if (fila[index] == i && columnas[index] == j) {
+        if (filas[index] == i && columnas[index] == j) {
             encontrado = true;
 
             if (nuevoValor == 0) {
                 distintoDeCeros.erase(distintoDeCeros.begin() + index);
-                fila.erase(fila.begin() + index);
+                filas.erase(filas.begin() + index);
                 columnas.erase(columnas.begin() + index);
                 eliminado = true;
             } else {
@@ -208,7 +208,7 @@ void DisperseMatrix::assign(int i, int j, int nuevoValor) {
 
     if (!encontrado && nuevoValor != 0) {
         distintoDeCeros.push_back(nuevoValor);
-        fila.push_back(i);
+        filas.push_back(i);
         columnas.push_back(j);
     }
 }
@@ -237,7 +237,7 @@ void DisperseMatrix::printMatrix(string separacion)
 Operación productVector.
 Entrada: que recibe un vector y multiplica el objeto actual por el vector recibido..
 */
-void DisperseMatrix::productVector(vector<int> vector)
+void DisperseMatrix::productVector(vector<int> &vector)
 {
 }
 

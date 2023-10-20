@@ -24,10 +24,10 @@ using namespace std;
 class DisperseMatrix
 {
 private:
-    list<int> distintoDeCeros;
-    list<int> fila;
-    list<int> columna;
-
+    vector<list<int> > filas;
+    int numFilas;
+    int numColums;
+    
 public:
     /*Constructores*/
     DisperseMatrix(int** matriz, int fila, int columna);
@@ -35,7 +35,7 @@ public:
     DisperseMatrix(DisperseMatrix& a);
 
     /*Operaciones*/
-    vector<vector<int>> rebuild();
+    vector<vector<int> > rebuild();
     int get(int fila, int columna);
     vector<int> getRow(int fila);
     list<int> getRowList(int fila);
@@ -46,18 +46,19 @@ public:
     vector<int> getDisperseCol(int columna);
     list<int> getDisperseColList(int columna);
     int getMax();
-    int getTranspose(); 
+    DisperseMatrix getTranspose(); 
     void assign(int i, int j, int nuevoValor);
-    void add(vector<vector<int>> matriz);
+    void add(DisperseMatrix);
     void printMatrix(string separacion);
     void productVector(vector<int> &vector);
+
     /*Estaticas*/
     static DisperseMatrix addMatrixLista(list<DisperseMatrix> &lista);
 
     /*Operadores sobrecargados*/
     DisperseMatrix operator*(DisperseMatrix &l);
     DisperseMatrix operator+(DisperseMatrix &l);
-    bool operator==(DisperseMatrix &num);
+    bool operator==(DisperseMatrix &l);
 
 };
 #endif

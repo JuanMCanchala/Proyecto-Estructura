@@ -20,11 +20,6 @@ erase, remove, reverse, size, sort, . . . : similares a las operaciones
 sobre vectores con STL, aunque todas estas funciones est ́an definidas
 como m ́etodos en las clase list.
 */
-/*correcciones carlos
- No es buena idea colocarle a las variables nombres iguales a los tipos de datos.
-¿cuál es la razón de recorrer todo el vector this->fila si solo necesitas la fila representada por la variable fila?
-Algo similar a lo anterior ocurre en la operación get
-*/
 #ifndef DISPERSE_MATRIX
 #define DISPERSE_MATRIX
 
@@ -39,7 +34,7 @@ class DisperseMatrix
 {
 private:
     vector<int> distintoDeCeros;
-    vector<int> fila; 
+    vector<int> filas; 
     vector<int> columnas; 
     int numFilas;
     int numColums;
