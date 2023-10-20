@@ -5,13 +5,7 @@
  * Representacion Estructura disperseMatrix
  */
 
-/*correcciones carlos
-La opreación getTranspose debería retornar una matriz dispersa
-en productVector no estás pasando el vector como referencia. No es buena idea colocarle a las variables nombres iguales a los tipos de datos.
-¿cuál es la razón de recorrer todo el vector this->fila si solo necesitas la fila representada por la variable fila?
-Algo similar a lo anterior ocurre en la operación get
-La operación addMatrizLista debería recibir una lista y no un vector
-*/
+
 #ifndef DISPERSE_MATRIX
 #define DISPERSE_MATRIX
 
@@ -27,7 +21,7 @@ private:
     vector<list<int> > filas;
     int numFilas;
     int numColums;
-    
+
 public:
     /*Constructores*/
     DisperseMatrix(int** matriz, int fila, int columna);
