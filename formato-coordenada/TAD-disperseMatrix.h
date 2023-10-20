@@ -1,5 +1,6 @@
 /*
  * Autor: Juan Manuel Canchala Jimenez
+ * Autor: Isabella Gutierrez
  * Date: 2 de octubre de 2023
  *
  * Representacion Estructura disperseMatrix
@@ -18,6 +19,11 @@ elemento elem en la posici ́on asociada al iterador it.
 erase, remove, reverse, size, sort, . . . : similares a las operaciones
 sobre vectores con STL, aunque todas estas funciones est ́an definidas
 como m ́etodos en las clase list.
+*/
+/*correcciones carlos
+ No es buena idea colocarle a las variables nombres iguales a los tipos de datos.
+¿cuál es la razón de recorrer todo el vector this->fila si solo necesitas la fila representada por la variable fila?
+Algo similar a lo anterior ocurre en la operación get
 */
 #ifndef DISPERSE_MATRIX
 #define DISPERSE_MATRIX
@@ -56,14 +62,14 @@ public:
     vector<int> getDisperseCol(int columna);
     list<int> getDisperseColList(int columna);
     int getMax();
-    vector<vector<int> > getTranspose(); 
+    DisperseMatrix getTranspose(); 
     void assign(int i, int j, int nuevoValor);
     void add(DisperseMatrix);
     void printMatrix(string separacion);
-    void productVector(vector<int> vector);
+    void productVector(vector<int> &vector);
 
     /*Estaticas*/
-    static DisperseMatrix addMatrixLista(vector<DisperseMatrix> &lista);
+    static DisperseMatrix addMatrixLista(list<DisperseMatrix> &lista);
 
     /*Operadores sobrecargados*/
     DisperseMatrix operator*(DisperseMatrix &l);

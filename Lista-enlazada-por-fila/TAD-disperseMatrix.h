@@ -50,13 +50,13 @@ public:
     void assign(int i, int j, int nuevoValor);
     void add(vector<vector<int>> matriz);
     void printMatrix(string separacion);
-    void productVector(vector<int> vector);
+    void productVector(vector<int> &vector);
     /*Estaticas*/
     static DisperseMatrix addMatrixLista(list<DisperseMatrix> &lista);
 
     /*Operadores sobrecargados*/
-    bool operator*(DisperseMatrix &num);
-    bool operator+(DisperseMatrix &num);
+    DisperseMatrix operator*(DisperseMatrix &l);
+    DisperseMatrix operator+(DisperseMatrix &l);
     bool operator==(DisperseMatrix &num);
 
 };
