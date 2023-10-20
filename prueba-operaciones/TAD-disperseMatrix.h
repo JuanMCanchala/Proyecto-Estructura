@@ -10,13 +10,12 @@ private:
     std::vector<int> columnas;
 public:
     DisperseMatrix(int** matriz, int filas, int columnas);
-    DisperseMatrix(std::vector<std::vector<int>>& arreglo);
+    DisperseMatrix(std::vector<std::vector<int> > &arreglo);
     int get(int i, int j);
     int getMax();
     void assign(int i, int j, int nuevoValor);
     std::vector<int> getRow(int fila);
-    /*std::vector<int> getDisperseRow(int fila);*/
-    /*std::vector<std::vector<int>> getTranspose(std::vector<std::vector<int>> matriz); */
+    std::vector<std::vector<int> > getTranspose(std::vector<std::vector<int> > matriz);
 
 };
 

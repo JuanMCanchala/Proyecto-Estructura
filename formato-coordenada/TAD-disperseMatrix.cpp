@@ -59,9 +59,9 @@ DisperseMatrix::DisperseMatrix(DisperseMatrix &a)
 Operación Rebuild.
 Entrada: que reconstruya la matriz completa asociada a la instancia de una matriz dispersa.
 */
-vector<vector<int>> DisperseMatrix::rebuild(vector<vector<int>> matriz, int fila, int columna)
+vector<vector<int>> DisperseMatrix::rebuild()
 {
-
+//recosntruye  la matriz dispersa de la instancia
 }
 
 /*
@@ -177,16 +177,10 @@ int DisperseMatrix::getMax()
 Operación getTranspose.
 Entrada: que construye la matriz dispersa correspondiente a la transpuesta del objeto actual.
 */
-vector<vector<int>> DisperseMatrix::getTranspose(vector<vector<int>> matriz)
+vector<vector<int>> DisperseMatrix::getTranspose()
 {
-    vector<vector<int>> copiaMatriz(matriz);
-    for(int i = 0; i < matriz.size(); i++){
-        for(int j = 0; j < matriz[0].size(); j++){
-            copiaMatriz[i][j] = matriz[j][i];
-        }
-    }
-    return copiaMatriz;
-
+DisperseMatrix result(*this);
+//terminar
 }
 
 /*
@@ -224,8 +218,9 @@ void DisperseMatrix::assign(int i, int j, int nuevoValor) {
 Operación add.
 Entrada: que recibe otra matriz dispersa de iguales dimensiones y le suma al objeto actual la matriz que se recibe como parámetro.
 */
-void DisperseMatrix::add(vector<vector<int>> matriz)
+void DisperseMatrix::add(DisperseMatrix)
 {
+
 }
 
 /*

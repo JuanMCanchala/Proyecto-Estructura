@@ -14,7 +14,7 @@ DisperseMatrix::DisperseMatrix(int** matriz, int filas, int columnas) {
     }
 }
 
-DisperseMatrix::DisperseMatrix(std::vector<std::vector<int>> &arreglo)
+DisperseMatrix::DisperseMatrix(std::vector<std::vector<int> > &arreglo)
 {
 
     int fila = arreglo.size();
@@ -94,8 +94,9 @@ std::vector<int> DisperseMatrix::getRow(int fila)
     return filaVector;
 }
 
-/*std::vector<std::vector<int>> DisperseMatrix::getTranspose(std::vector<std::vector<int>> matriz){
-    std::vector<std::vector<int>> copiaMatriz(matriz);
+std::vector<std::vector<int> > DisperseMatrix::getTranspose(std::vector<std::vector<int> > matriz)
+{
+    std::vector<std::vector<int> > copiaMatriz(matriz);
     for(int i = 0; i < matriz.size(); i++){
         for(int j = 0; j < matriz[0].size(); j++){
             copiaMatriz[i][j] = matriz[j][i];
@@ -103,5 +104,5 @@ std::vector<int> DisperseMatrix::getRow(int fila)
     }
     return copiaMatriz;
 
+}
 
-} */

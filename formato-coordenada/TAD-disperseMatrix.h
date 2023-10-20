@@ -35,16 +35,17 @@ private:
     vector<int> distintoDeCeros;
     vector<int> fila; 
     vector<int> columnas; 
+    int numFilas;
+    int numColums;
 
 public:
     /*Constructores*/
-    /*arreglar*/
     DisperseMatrix(int** matriz, int fila, int columna);
     DisperseMatrix(vector<vector<int>>& arreglo);
     DisperseMatrix(DisperseMatrix& a);
 
     /*Operaciones*/
-    vector<vector<int>> rebuild(vector<vector<int>> matriz, int fila, int columna);
+    vector<vector<int> > rebuild();
     int get(int fila, int columna);
     vector<int> getRow(int fila);
     list<int> getRowList(int fila);
@@ -55,11 +56,12 @@ public:
     vector<int> getDisperseCol(int columna);
     list<int> getDisperseColList(int columna);
     int getMax();
-    vector<vector<int>>getTranspose(vector<vector<int>> matriz); 
+    vector<vector<int> > getTranspose(); 
     void assign(int i, int j, int nuevoValor);
-    void add(vector<vector<int>> matriz);
+    void add(DisperseMatrix);
     void printMatrix(string separacion);
     void productVector(vector<int> vector);
+
     /*Estaticas*/
     static DisperseMatrix addMatrixLista(vector<DisperseMatrix> &lista);
 
