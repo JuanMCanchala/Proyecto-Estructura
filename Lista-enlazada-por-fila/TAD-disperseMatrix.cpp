@@ -1,3 +1,10 @@
+/*
+ * Autor: Juan Manuel Canchala Jimenez
+ * Autor: Isabela Gutierrez Reyes
+ *
+ * Implemnetacion Estructura DisperseMatrix
+*/
+
 #include "TAD-disperseMatrix.h"
 
 /* Implementacion constructores */
