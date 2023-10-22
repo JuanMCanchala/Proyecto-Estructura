@@ -1,10 +1,10 @@
 /*
  * Autor: Juan Manuel Canchala Jimenez
+ * Autor: Isabela Gutierrez Reyes
  * Date: 2 de octubre de 2023
  *
  * Representacion Estructura disperseMatrix
  */
-
 
 #ifndef DISPERSE_MATRIX
 #define DISPERSE_MATRIX
@@ -15,10 +15,10 @@
 #include <list>
 using namespace std;
 
-class DisperseMatrix
-{
+class DisperseMatrix {
 private:
-    vector<list<int> > filas;
+    vector<list<int>> filas;
+    vector<list<pair<int, int>>> listaEnlazada;
     int numFilas;
     int numColums;
 
@@ -29,7 +29,7 @@ public:
     DisperseMatrix(DisperseMatrix& a);
 
     /*Operaciones*/
-    vector<vector<int> > rebuild();
+    vector<list <pair <int, int>>> rebuild();
     int get(int fila, int columna);
     vector<int> getRow(int fila);
     list<int> getRowList(int fila);
@@ -53,6 +53,6 @@ public:
     DisperseMatrix operator*(DisperseMatrix &l);
     DisperseMatrix operator+(DisperseMatrix &l);
     bool operator==(DisperseMatrix &l);
-
 };
+
 #endif
