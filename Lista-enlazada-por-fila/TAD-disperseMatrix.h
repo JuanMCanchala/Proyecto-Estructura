@@ -2,9 +2,9 @@
  * Autor: Juan Manuel Canchala Jimenez
  * Autor: Isabela Gutierrez Reyes
  * Date: 2 de octubre de 2023
- *
- * Representacion Estructura disperseMatrix
- */
+
+ * Representacion Estructura disperseMatrix formato lista enlazada por filas
+*/
 
 #ifndef DISPERSE_MATRIX
 #define DISPERSE_MATRIX
@@ -17,42 +17,41 @@ using namespace std;
 
 class DisperseMatrix {
 private:
-    vector<list<int>> filas;
-    vector<list<pair<int, int>>> listaEnlazada;
-    int numFilas;
-    int numColums;
+    vector <list <pair <int, int>>> listaEnlazada;
+    int numFilas, numColums;
 
 public:
     /*Constructores*/
-    DisperseMatrix(int** matriz, int fila, int columna);
-    DisperseMatrix(vector<vector<int>>& arreglo);
-    DisperseMatrix(DisperseMatrix& a);
+    DisperseMatrix();
+    DisperseMatrix(int **arreglo, int fila, int columna);                       /* ✔ */
+    DisperseMatrix(vector <vector <int>> &vector);                              /* ✔ */
+    DisperseMatrix(DisperseMatrix &a);                                          /* ✔ */
 
     /*Operaciones*/
-    vector<list <pair <int, int>>> rebuild();
-    int get(int fila, int columna);
-    vector<int> getRow(int fila);
-    list<int> getRowList(int fila);
-    vector<int> getCol(int columna);
-    list<int> getColList(int columna);
-    vector<int> getDisperseRow(int fila);
-    list<int> getDisperseRowList(int fila);
-    vector<int> getDisperseCol(int columna);
-    list<int> getDisperseColList(int columna);
-    int getMax();
+    vector <vector <int>> rebuild();                                            /* ✔ */
+    int get(int fila, int columna);                                             /* ✔ */
+    vector <pair <int, int>> getRowVec(int fila);                               /* ✔ */
+    list <pair <int, int>> getRowList(int fila);                                /* ✔ */
+    vector <pair <int, int>> getColVec(int columna);                            /* ✔ */
+    list <pair <int, int>> getColList(int columna);                             /* ✔ */
+    vector <pair <int,int>> getDisperseRowVec(int fila);                        /* ✔ */
+    list <pair <int, int>> getDisperseRowList(int fila);                        /* ✔ */
+    vector <pair <int, int>> getDisperseColVec(int columna);                    /* ✔ */
+    list <pair <int, int>> getDisperseColList(int columna);                     /* ✔ */
+    int getMax();                                                               /* ✔ */
     DisperseMatrix getTranspose(); 
-    void assign(int i, int j, int nuevoValor);
-    void add(DisperseMatrix);
-    void printMatrix(string separacion);
-    void productVector(vector<int> &vector);
+    void assign(int i, int j, int nuevoValor);                                  /* ✔ */
+    void add(DisperseMatrix &nuevaMatriz);
+    void printMatrix(string separacion);                                        /* ✔ */
+    void productVector(vector <int> &vector);
 
     /*Estaticas*/
-    static DisperseMatrix addMatrixLista(list<DisperseMatrix> &lista);
+    static DisperseMatrix addMatrixLista(list <DisperseMatrix> &lista);
 
     /*Operadores sobrecargados*/
-    DisperseMatrix operator*(DisperseMatrix &l);
-    DisperseMatrix operator+(DisperseMatrix &l);
-    bool operator==(DisperseMatrix &l);
+    DisperseMatrix operator * (DisperseMatrix &l);
+    DisperseMatrix operator + (DisperseMatrix &l);
+    bool operator == (DisperseMatrix &l);
 };
 
 #endif

@@ -1,352 +1,263 @@
+/*
+ * Autor: Juan Manuel Canchala Jimenez
+ *
+ * Implemnetacion Estructura DisperseMatrix
+ */
 #include "TAD-disperseMatrix.h"
 
 /*
- * Autor: Juan Manuel Canchala Jimenez
- * Autor: Isabela Gutierrez Reyes
- * Date: 2 de octubre de 2023
- 
- * Implementacion Estructura disperseMatrix formato lista enlazada por filas
+Una operación constructora que tome como parámetro una matriz completa representada como un arreglo de
+dos dimensiones.
+*/
+DisperseMatrix::DisperseMatrix(int** matriz, int fila, int columna) {
+
+    for (int i = 0; i < fila; i++) {
+        for (int j = 0; j < columna; j++) {
+            if (matriz[i][j] != 0) {
+                distintoDeCeros.push_back(matriz[i][j]);
+                filas.push_back(i);
+                columnas.push_back(j);
+            }
+        }
+    }
+}
+
+
+/*
+Constructor que toma como parametro una matriz representada por un vector de vectores
+*/
+DisperseMatrix::DisperseMatrix(vector<vector<int>> &arreglo)
+{
+
+    int fila = arreglo.size();
+    int columna = arreglo[0].size();
+
+    for (int i = 0; i < fila; i++) {
+        for (int j = 0; j < columna; j++) {
+            if (arreglo[i][j] != 0) {
+                distintoDeCeros.push_back(arreglo[i][j]);
+                filas.push_back(i);
+                columnas.push_back(j);
+            }
+        }
+    }
+}
+
+/*
+Constructor que toma como parametro otra instancia de disperseMatrix
 */
 
-/* Implementacion constructores */
+DisperseMatrix::DisperseMatrix(DisperseMatrix &a)
+{
+    distintoDeCeros = a.distintoDeCeros;
+    filas = a.filas;
+    columnas = a.columnas;
+}
+/*======================FINAL-CONSTRUCTORES==============================*/
 
-DisperseMatrix :: DisperseMatrix(){}
-
-DisperseMatrix :: DisperseMatrix(int **arreglo, int fila, int columna){
-
-    numFilas = fila;
-    numColums = columna;
-
-    list <pair <int, int>> nuevaLista;
-
-    int recorrerFilas, recorrerColumnas;
-    for(recorrerFilas = 0; recorrerFilas < numFilas; recorrerFilas++){
-        for(recorrerColumnas = 0; recorrerColumnas < numColums; recorrerColumnas++){
-            if(arreglo[recorrerFilas][recorrerColumnas] != 0){
-                pair <int, int> pareja(arreglo[recorrerFilas][recorrerColumnas], recorrerColumnas);
-                nuevaLista.push_back(pareja);
-            }
-        }
-
-        this->listaEnlazada.push_back(nuevaLista);
-        nuevaLista.clear();
-    }
-}   
-
-DisperseMatrix :: DisperseMatrix(vector <vector <int>> &vector){
-
-    numFilas = vector.size();
-    numColums = vector[0].size();
-
-    list <pair <int, int>> nuevaLista;
-
-    int recorrerFila, recorrerColumna;
-    for(recorrerFila = 0; recorrerFila < numFilas; recorrerFila++){
-        for(recorrerColumna = 0; recorrerColumna < numColums; recorrerColumna++){
-            if(vector[recorrerFila][recorrerColumna] != 0){
-                pair <int, int> pareja(vector[recorrerFila][recorrerColumna], recorrerColumna);
-                nuevaLista.push_back(pareja);
-            }
-        }
-
-        listaEnlazada.push_back(nuevaLista);
-        nuevaLista.clear();
-    }
+/*
+Operación Rebuild.
+Entrada: que reconstruya la matriz completa asociada a la instancia de una matriz dispersa.
+*/
+vector<vector<int>> DisperseMatrix::rebuild()
+{
+//recosntruye  la matriz dispersa de la instancia
 }
 
-DisperseMatrix :: DisperseMatrix(DisperseMatrix &a){
-
-    this -> numFilas = a.numFilas;
-    this -> numColums = a.numColums;
-    this -> listaEnlazada = a.listaEnlazada;
-}  
-
-/* Implementacion operaciones */
-
-vector <vector <int>> DisperseMatrix :: rebuild(){
-
-    list <pair <int, int>> :: iterator it;
-    vector <vector <int>> matrizDispersa;
-    vector <int> vectorNuevo;
-
-    int recorrerFila, recorrerColumna;
-    for(recorrerFila = 0; recorrerFila < numFilas; recorrerFila++){
-
-        it = listaEnlazada[recorrerFila].begin();
-
-        for(recorrerColumna = 0; recorrerColumna < numColums; recorrerColumna++){
-            if(recorrerColumna == it->second){
-                vectorNuevo.push_back(it->first);
-                it++;
-            } else {
-                vectorNuevo.push_back(0);
-            }
-        }
-
-        matrizDispersa.push_back(vectorNuevo);
-        vectorNuevo.clear();
-    }
-    
-    return matrizDispersa;
-}
-
-int DisperseMatrix :: get(int fila, int columna){
-
+/*
+Operación get.
+Entrada: que permita obtener el valor que está en la posición i, j en la matriz. Si la posición i, j
+corresponde a un cero, este valor debe ser retornado.
+*/
+int DisperseMatrix::get(int fila, int columna)
+{
     int ans = 0;
-    list <pair <int, int>> :: iterator it;
+    int valor = 0; 
 
-    for(it = listaEnlazada[fila].begin(); it != listaEnlazada[fila].end(); it++){
-        if(it->second == columna){
-            ans = it->first;
+    for (int i = 0; i < filas.size(); i++) {
+        if (filas[i] == fila && columnas[i] == columna) {
+            ans = valor;
         }
     }
 
     return ans;
 }
 
-vector <pair <int, int>> DisperseMatrix :: getRowVec(int fila){
+/*
+Operación getRow.
+Entrada: que permite obtener la fila j de la matriz dispersa como un vector o como una lista
+enlazada (se deben considerar ambas variantes).
+*/
+vector<int> DisperseMatrix::getRow(int fila)
+{
+    vector<int> filaVector;
 
-    vector <pair <int, int>> vectorFila;
-    list <pair <int, int>> :: iterator it = listaEnlazada[fila].begin();
-
-    int recorrerFila, recorrerColumna;
-    for(recorrerColumna = 0; recorrerColumna < numColums; recorrerColumna++){
-        if(it->second == recorrerColumna){
-            pair <int, int> pareja(it->first, recorrerColumna);
-            vectorFila.push_back(pareja);
-            it++;
+    for (int i = 0; i < filas.size(); i++) {
+        if (filas[i] == fila) {
+            filaVector.push_back(this->distintoDeCeros[i]);
         }
     }
 
-    return vectorFila;
+    return filaVector;
 }
 
-list <pair <int, int>> DisperseMatrix :: getRowList(int fila){
+/*Operacion getRowList*/
+list<int> DisperseMatrix::getRowList(int fila){
 
-    list <pair <int, int>> listaFila;
-    list <pair <int, int>> :: iterator it = listaEnlazada[fila].begin();
-
-    int recorrerFila, recorrerColumna;
-    for(recorrerColumna = 0; recorrerColumna < numColums; recorrerColumna++){
-        if(it->second == recorrerColumna){
-            pair <int, int> pareja(it->first, recorrerColumna);
-            listaFila.push_back(pareja);
-            it++;
-        }
-    }
-
-    return listaFila;
 }
 
-vector <pair <int, int>> DisperseMatrix :: getColVec(int columna){
+/*
+Operación getCol.
+Entrada: que permite obtener la columna j de la matriz dispersa como un vector o como una lista
+enlazada (se deben considerar ambas variantes).
+*/
+vector<int> DisperseMatrix::getCol(int columna)
+{
 
-    vector <pair <int, int>> vectorColumna;
-
-    int fila, posicion;
-    list <pair <int, int>> :: iterator it;
-
-    for(fila = 0; fila < numFilas; fila++){
-        bool flag = false;
-        it = listaEnlazada[fila].begin();
-        while(it != listaEnlazada[fila].end() && flag == false){
-            if(it->second == columna){
-                pair <int, int> pareja(it->first, fila);
-                vectorColumna.push_back(pareja);
-                flag = true;
-            }  
-            it++; 
-        }
-    }
-
-    return vectorColumna;
 }
 
-list <pair <int, int>> DisperseMatrix :: getColList(int columna){
 
-    list <pair <int, int>> listaColumna;
+/*Operacion getColList*/
+list<int> DisperseMatrix::getColList(int columna)
+{
 
-    int fila;
-    list <pair <int, int>> :: iterator it;
-
-    for(fila = 0; fila < numFilas; fila++){
-        bool flag = false;
-        it = listaEnlazada[fila].begin();
-        while(it != listaEnlazada[fila].end() && flag == false){
-            if(it->second == columna){
-                pair <int, int> pareja(it->first, fila);
-                listaColumna.push_back(pareja);
-                flag = true;
-            }  
-            it++; 
-        }
-    }
-
-    return listaColumna;
 }
 
-vector <pair <int, int>> DisperseMatrix :: getDisperseRowVec(int fila){
 
-    int columna = 0;
-    vector <pair <int, int>> filaDispersa;
-    list <pair <int, int>> :: iterator it = listaEnlazada[fila].begin();
-
-    int recorrerFila, recorrerColumna;
-    for(recorrerColumna = 0; recorrerColumna < numColums; recorrerColumna++){
-        if(it->second == recorrerColumna){
-            pair <int, int> pareja(it->first, recorrerColumna);
-            filaDispersa.push_back(pareja);
-            it++;
-        } else {
-            pair <int, int> pareja(0, recorrerColumna);
-            filaDispersa.push_back(pareja);
-        }
-    }
-
-    return filaDispersa;
+/*
+Operación getDisperseRow.
+Entrada: que permite obtener la fila j de la matriz dispersa incluyendo los ceros como
+un vector o como una lista enlazada (se deben considerar ambas variantes).
+*/
+vector<int> DisperseMatrix::getDisperseRow(int fila)
+{
 }
 
-list <pair <int, int>> DisperseMatrix :: getDisperseRowList(int fila){
 
-    int columna = 0;
-    list <pair <int, int>> listaFilaDispersa;
-    list <pair <int, int>> :: iterator it = listaEnlazada[fila].begin();
+/*operacion getDisperseRowList*/
+list<int> DisperseMatrix::getDisperseRowList(int fila){
 
-    int recorrerFila, recorrerColumna;
-    for(recorrerColumna = 0; recorrerColumna < numColums; recorrerColumna++){
-        if(it->second == recorrerColumna){
-            pair <int, int> pareja(it->first, recorrerColumna);
-            listaFilaDispersa.push_back(pareja);
-            it++;
-        } else {
-            pair <int, int> pareja(0, recorrerColumna);
-            listaFilaDispersa.push_back(pareja);
-        }
-    }
-
-    return listaFilaDispersa;
 }
 
-vector <pair <int, int>> DisperseMatrix :: getDisperseColVec(int columna){
 
-    vector <pair <int, int>> vectorColumnasDispersas;
-    list <pair <int, int>> :: iterator it;
-
-    int fila;
-    for(fila = 0; fila < numFilas; fila++){
-        bool flag = false;
-        it = listaEnlazada[fila].begin();
-        while(it != listaEnlazada[fila].end() && flag == false){
-            if(it->second == columna){
-                pair <int, int> pareja(it->first, fila);
-                vectorColumnasDispersas.push_back(pareja);
-                flag = true;
-            }
-            it++; 
-        }
-
-        if(flag == false){
-            pair <int, int> pareja(0, fila);
-            vectorColumnasDispersas.push_back(pareja);
-        }
-    }
-
-    return vectorColumnasDispersas;
+/*
+Operación getDisperseCol.
+Entrada: que permite obtener la columna j de la matriz dispersa incluyendo los ceros
+como un vector o como una lista enlazada (se deben considerar ambas variantes).
+*/
+vector<int> DisperseMatrix::getDisperseCol(int columna)
+{
 }
 
-list <pair <int, int>> DisperseMatrix :: getDisperseColList(int columna){
+/*Operacion getDisperseColList*/
+list<int> DisperseMatrix::getDisperseColList(int columna)
+{
 
-    list <pair <int, int>> listaColumnasDispersas;
-    list <pair <int, int>> :: iterator it;
-
-    int fila;
-    for(fila = 0; fila < numFilas; fila++){
-        bool flag = false;
-        it = listaEnlazada[fila].begin();
-        while(it != listaEnlazada[fila].end() && flag == false){
-            if(it->second == columna){
-                pair <int, int> pareja(it->first, fila);
-                listaColumnasDispersas.push_back(pareja);
-                flag = true;
-            }
-            it++; 
-        }
-
-        if(flag == false){
-            pair <int, int> pareja(0, fila);
-            listaColumnasDispersas.push_back(pareja);
-        }
-    }
-
-    return listaColumnasDispersas;
 }
 
-int DisperseMatrix :: getMax(){
+/*
+Operación getMax.
+Entrada: que debe retornar el mayor elemento en la matriz.
+*/
+int DisperseMatrix::getMax()
+{
+    int mayor = distintoDeCeros[0];
 
-    int valorMax = 0;
-    list <pair <int, int>> :: iterator it;
-
-    int recorrerFila;
-    for(recorrerFila = 0; recorrerFila < numFilas; recorrerFila++){
-        for(it = listaEnlazada[recorrerFila].begin(); it != listaEnlazada[recorrerFila].end(); it++){
-            if(it->first > valorMax){
-                valorMax = it->first;
-            }
+    for (int i = 1; i < distintoDeCeros.size(); i++) {
+        if (distintoDeCeros[i] > mayor) {
+            mayor = distintoDeCeros[i];
         }
     }
 
-    return valorMax;
+    return mayor;
+
 }
 
-void DisperseMatrix :: assign(int fila, int columna, int nuevoValor){
-
-    list <pair <int, int>> :: iterator it = listaEnlazada[fila].begin();
-    bool flag = false;
-    while(it != listaEnlazada[fila].end() && !flag){
-        if((*it).second == columna){
-            flag = true;
-        }
-        it++;
-    }
-
-    if(!flag && nuevoValor != 0){
-        pair <int, int> pareja(nuevoValor, columna);
-        listaEnlazada[fila].push_back(pareja);
-    } else {
-        if(nuevoValor == 0){
-            it = listaEnlazada[fila].erase(it);
-        } else {
-            (*it).first = nuevoValor;   
-        }
-    }
+/*
+Operación getTranspose.
+Entrada: que construye la matriz dispersa correspondiente a la transpuesta del objeto actual.
+*/
+DisperseMatrix DisperseMatrix::getTranspose()
+{
+DisperseMatrix result(*this);
+//terminar
 }
 
-void DisperseMatrix :: printMatrix(string separador){
+/*
+Operación assing.
+Entrada: que permite modificar el valor en la posición i, j de la matriz. Es importante resaltar que si el valor anterior es un cero en la matriz original o si el nuevo valor es un cero, se debe modificar la estructura de la matriz dispersa para incluir el nuevo valor o para eliminar la posición que pasa a contener un cero.
+*/
+void DisperseMatrix::assign(int i, int j, int nuevoValor) {
+    bool encontrado = false;
+    bool eliminado = false;
 
-    int recFila, contador;
-    list <pair <int, int>> :: iterator it;
-    for(recFila = 0; recFila < numFilas; recFila++){
-        contador = 0;
-        for(it = listaEnlazada[recFila].begin(); it != listaEnlazada[recFila].end(); it++){
-            if(recFila != numFilas - 1 || contador < listaEnlazada[recFila].size() - 1){
-                cout << it->first << " " << separador << " ";
+    for (int index = 0; index < distintoDeCeros.size(); index++) {
+        if (filas[index] == i && columnas[index] == j) {
+            encontrado = true;
+
+            if (nuevoValor == 0) {
+                distintoDeCeros.erase(distintoDeCeros.begin() + index);
+                filas.erase(filas.begin() + index);
+                columnas.erase(columnas.begin() + index);
+                eliminado = true;
             } else {
-                cout << it->first;
+                distintoDeCeros[index] = nuevoValor;
             }
-            contador++;
         }
+    }
+
+    if (!encontrado && nuevoValor != 0) {
+        distintoDeCeros.push_back(nuevoValor);
+        filas.push_back(i);
+        columnas.push_back(j);
     }
 }
 
-void DisperseMatrix :: add(DisperseMatrix &nuevaMatriz){
 
-    int recorrerFila;
-    list <pair <int, int>> :: iterator itMatriz, itNuevaMatriz;
+/*
+Operación add.
+Entrada: que recibe otra matriz dispersa de iguales dimensiones y le suma al objeto actual la matriz que se recibe como parámetro.
+*/
+void DisperseMatrix::add(DisperseMatrix)
+{
 
-    for(recorrerFila = 0; recorrerFila < numFilas; recorrerFila++){
-        itNuevaMatriz = nuevaMatriz.listaEnlazada[recorrerFila].begin();
-        for(itMatriz = listaEnlazada[recorrerFila].begin(); itMatriz != listaEnlazada[recorrerFila].end(); itMatriz++){
-            
-        }
-    }
+}
+
+/*
+Operación printMatrix.
+Entrada: que recibe una cadena de separación e imprime cada fila de la matriz en una línea
+con los elementos separados por dicho caracter.
+*/
+void DisperseMatrix::printMatrix(string separacion)
+{
+    //revisar ejemplos
+}
+
+/*
+Operación productVector.
+Entrada: que recibe un vector y multiplica el objeto actual por el vector recibido..
+*/
+void DisperseMatrix::productVector(vector<int> &vector)
+{
+}
+
+/*La operación estática addMatrixList que toman una lista de instancias del TAD DisperseMatrix y retorna el resultado de sumar la lista de matrices recibidas.*/
+/*por agregar hasta que se vea en clase como hacerlo*/
+
+
+/*=========================SOBRECARGAS===================================*/
+
+// Operador + para la suma de dos matrices
+DisperseMatrix DisperseMatrix::operator+(DisperseMatrix &l){
+
+}
+
+// Operador * para la multiplicacion de dos matrices
+DisperseMatrix DisperseMatrix::operator*(DisperseMatrix &l){
+    
+}
+
+// Operador == para comprobar si dos matrices son iguales
+bool DisperseMatrix::operator==(DisperseMatrix &l){
 
 }
